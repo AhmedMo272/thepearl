@@ -1,0 +1,1926 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Pearl — Story-Driven Modest Fashion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap"
+      rel="stylesheet">
+    <style>
+  :root {
+    --navy: #0D1B3E;
+    --navy-light: #1A2F5E;
+    --gold: #C9A84C;
+    --gold-light: #D4B483;
+    --pearl: #F8F4EE;
+    --cream: #F0E9DF;
+    --mist: #B8C4CC;
+    --white: #FFFFFF;
+    --text-dark: #0D1B3E;
+    --text-muted: #6A6058;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom Cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+    mix-blend-mode: normal;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,168,76,0.5);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.4s ease, padding 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(13, 27, 62, 0.95);
+    backdrop-filter: blur(12px);
+    padding: 1rem 4rem;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mist);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 0.5rem 1.5rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: all 0.3s;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--navy); }
+
+  /* Hero — The Arrival */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--navy);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 120%, rgba(201,168,76,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 80% 20%, rgba(26,47,94,0.8) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 80% at 0% 50%, rgba(13,27,62,0.9) 0%, transparent 50%);
+  }
+
+  /* Animated pearl orbs */
+  .pearl-orb {
+    position: absolute;
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+  }
+  .orb-1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle at 35% 35%, rgba(201,168,76,0.12), rgba(13,27,62,0.0));
+    top: -100px; right: -100px;
+    animation-delay: 0s;
+  }
+  .orb-2 {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle at 40% 40%, rgba(201,168,76,0.08), transparent);
+    bottom: 50px; left: -50px;
+    animation-delay: -3s;
+  }
+  .orb-3 {
+    width: 200px; height: 200px;
+    background: radial-gradient(circle at 50% 50%, rgba(248,244,238,0.05), transparent);
+    top: 30%; left: 15%;
+    animation-delay: -5s;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-30px) scale(1.05); }
+  }
+
+  /* Pearl center symbol */
+  .pearl-symbol {
+    position: absolute;
+    width: 280px; height: 280px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pearl-pulse 6s ease-in-out infinite;
+  }
+  .pearl-symbol::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 38%, rgba(201,168,76,0.25), rgba(201,168,76,0.02) 60%, transparent);
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+  .pearl-inner {
+    position: absolute;
+    width: 180px; height: 180px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 38%, rgba(201,168,76,0.2), rgba(201,168,76,0.03) 70%, transparent);
+    border: 1px solid rgba(201,168,76,0.2);
+  }
+  .pearl-core {
+    position: absolute;
+    width: 90px; height: 90px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 38%, rgba(248,244,238,0.9), rgba(201,168,76,0.4) 50%, rgba(201,168,76,0.1));
+    box-shadow: 0 0 40px rgba(201,168,76,0.3), inset 0 0 20px rgba(255,255,255,0.2);
+  }
+
+  @keyframes pearl-pulse {
+    0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 0.9; }
+    50% { transform: translate(-50%,-50%) scale(1.04); opacity: 1; }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 2rem;
+    max-width: 900px;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.3s;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(5rem, 12vw, 10rem);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: 0.08em;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1.2s ease forwards 0.5s;
+  }
+
+  .hero-title em {
+    display: block;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 0.55em;
+    letter-spacing: 0.25em;
+    font-weight: 300;
+  }
+
+  .hero-tagline {
+    font-size: 1rem;
+    font-weight: 200;
+    letter-spacing: 0.15em;
+    color: var(--mist);
+    margin-bottom: 3.5rem;
+    opacity: 0;
+    animation: fadeUp 1.2s ease forwards 0.8s;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 1.2s ease forwards 1s;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    padding: 1rem 2.5rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: none;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 1rem 2.5rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: none;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1.5s;
+  }
+  .hero-scroll span {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollDrop 2s ease-in-out infinite;
+  }
+  @keyframes scrollDrop {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Section shared styles */
+  section { position: relative; overflow: hidden; }
+
+  .section-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+  }
+
+  /* THE OCEAN — About / Vision */
+  #ocean {
+    background: var(--pearl);
+    color: var(--navy);
+    padding: 8rem 4rem;
+  }
+
+  .ocean-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .ocean-visual {
+    position: relative;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ocean-rings {
+    position: relative;
+    width: 360px;
+    height: 360px;
+  }
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .ring-1 { width: 360px; height: 360px; border-color: rgba(13,27,62,0.08); animation: rotate 20s linear infinite; }
+  .ring-2 { width: 280px; height: 280px; border-color: rgba(201,168,76,0.15); animation: rotate 15s linear infinite reverse; }
+  .ring-3 { width: 200px; height: 200px; border-color: rgba(13,27,62,0.12); animation: rotate 10s linear infinite; }
+  .ring-core {
+    position: absolute;
+    width: 130px; height: 130px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, var(--navy-light), var(--navy));
+    box-shadow: 0 0 60px rgba(13,27,62,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ring-core-inner {
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 38%, rgba(248,244,238,0.95), rgba(201,168,76,0.6) 60%, rgba(201,168,76,0.1));
+    box-shadow: 0 0 20px rgba(201,168,76,0.4);
+  }
+
+  @keyframes rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  .ocean-text .section-title { margin-bottom: 1.5rem; }
+  .ocean-text p {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+  .ocean-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--navy);
+    border-left: 2px solid var(--gold);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    line-height: 1.6;
+  }
+
+  /* REFLECTION — Transformation */
+  #reflection {
+    background: var(--navy);
+    padding: 8rem 4rem;
+  }
+
+  .reflection-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .reflection-header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  .transformation-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .transform-col {
+    padding: 3rem;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .transform-col.after {
+    border-color: rgba(201,168,76,0.3);
+    background: rgba(201,168,76,0.03);
+  }
+
+  .transform-col h3 {
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    color: var(--mist);
+  }
+  .transform-col.after h3 { color: var(--gold); }
+
+  .transform-word {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.4);
+  }
+  .transform-col.after .transform-word { color: var(--white); }
+
+  .transform-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    color: var(--gold);
+  }
+  .transform-arrow .arrow-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  }
+  .transform-arrow .arrow-icon {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+  }
+
+  .transform-statement {
+    text-align: center;
+    margin-top: 4rem;
+    padding: 2.5rem;
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+  .transform-statement p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gold-light);
+    line-height: 1.7;
+  }
+
+  /* DISCOVER YOUR PEARL — Quiz CTA */
+  #discover {
+    background: var(--cream);
+    color: var(--navy);
+    padding: 8rem 4rem;
+  }
+
+  .discover-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .quiz-card {
+    background: var(--navy);
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .quiz-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--gold), var(--gold-light));
+  }
+  .quiz-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .quiz-card p {
+    font-size: 0.85rem;
+    color: var(--mist);
+    margin-bottom: 2rem;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+  .quiz-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  .quiz-option {
+    padding: 1rem;
+    border: 1px solid rgba(255,255,255,0.12);
+    cursor: none;
+    transition: all 0.3s;
+    text-align: center;
+  }
+  .quiz-option:hover, .quiz-option.active {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.08);
+    color: var(--gold);
+  }
+  .quiz-option .option-icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
+  .quiz-option .option-label { font-size: 0.75rem; letter-spacing: 0.1em; }
+
+  .quiz-progress {
+    display: flex;
+    gap: 0.3rem;
+    margin-bottom: 1.5rem;
+  }
+  .quiz-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    transition: background 0.3s;
+  }
+  .quiz-dot.active { background: var(--gold); }
+
+  .discover-text .section-title { margin-bottom: 1.5rem; }
+  .discover-text > p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+  }
+
+  .pearl-types {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .pearl-type {
+    padding: 1.2rem;
+    border: 1px solid rgba(13,27,62,0.1);
+    transition: all 0.3s;
+    cursor: none;
+  }
+  .pearl-type:hover { border-color: var(--gold); background: rgba(201,168,76,0.04); }
+  .pearl-type .type-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.3rem;
+  }
+  .pearl-type .type-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+  .pearl-type .type-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-bottom: 0.8rem;
+  }
+
+  /* COLLECTIONS */
+  #collections {
+    background: var(--navy);
+    padding: 8rem 4rem;
+  }
+
+  .collections-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 5rem;
+  }
+  .collections-header p {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--mist);
+    margin-top: 1rem;
+    line-height: 1.8;
+  }
+
+  .collections-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .collection-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    background: var(--navy-light);
+    cursor: none;
+  }
+  .collection-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13,27,62,0.9) 0%, transparent 50%);
+    transition: opacity 0.4s;
+  }
+  .collection-card:hover::after { opacity: 0.7; }
+  .collection-card:hover .card-img { transform: scale(1.05); }
+
+  .card-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    background: linear-gradient(135deg, var(--navy-light), rgba(201,168,76,0.1));
+  }
+
+  .card-content {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 2rem;
+    z-index: 2;
+  }
+  .card-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    line-height: 1.2;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-top: 0.8rem;
+    text-decoration: none;
+    transition: gap 0.3s;
+  }
+  .card-link:hover { gap: 0.8rem; }
+
+  /* PEARL MIRROR — AI feature */
+  #mirror {
+    background: var(--pearl);
+    color: var(--navy);
+    padding: 8rem 4rem;
+  }
+
+  .mirror-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .mirror-visual {
+    position: relative;
+    height: 500px;
+  }
+
+  .mirror-frame {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 280px; height: 380px;
+    border: 1px solid rgba(201,168,76,0.3);
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    overflow: hidden;
+  }
+  .mirror-frame::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    background: linear-gradient(135deg, rgba(201,168,76,0.4), transparent 50%, rgba(201,168,76,0.2));
+    z-index: -1;
+  }
+  .mirror-glow {
+    position: absolute;
+    width: 150px; height: 150px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.15), transparent 70%);
+    animation: mirror-pulse 3s ease-in-out infinite;
+  }
+  @keyframes mirror-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.3); opacity: 1; }
+  }
+  .mirror-icon { font-size: 3rem; z-index: 1; }
+  .mirror-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    z-index: 1;
+  }
+
+  .mirror-features {
+    position: absolute;
+    right: 0; top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .mirror-feat {
+    background: var(--white);
+    padding: 0.7rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 2px 12px rgba(13,27,62,0.08);
+    white-space: nowrap;
+  }
+  .mirror-feat::before { content: '✦'; color: var(--gold); font-size: 0.6rem; }
+
+  .mirror-text .section-title { margin-bottom: 1.5rem; }
+  .mirror-text p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.9;
+    margin-bottom: 2rem;
+  }
+  .mirror-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  .mirror-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
+  .step-num {
+    width: 32px; height: 32px;
+    min-width: 32px;
+    border: 1px solid var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .step-text {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    padding-top: 0.4rem;
+    line-height: 1.7;
+  }
+
+  /* PEARL STORIES — Community */
+  #stories {
+    background: var(--navy);
+    padding: 8rem 4rem;
+  }
+
+  .stories-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 5rem;
+  }
+  .stories-header p {
+    color: var(--mist);
+    font-weight: 300;
+    line-height: 1.9;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .stories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1300px;
+    margin: 0 auto 4rem;
+  }
+
+  .story-card {
+    padding: 2.5rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: border-color 0.3s;
+    cursor: none;
+  }
+  .story-card:hover { border-color: rgba(201,168,76,0.25); }
+
+  .story-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--navy-light));
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+  .story-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 1.5rem;
+  }
+  .story-author {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .story-location {
+    font-size: 0.72rem;
+    color: var(--mist);
+    margin-top: 0.2rem;
+  }
+
+  .stories-cta {
+    text-align: center;
+  }
+
+  /* DESIGN YOUR PEARL — Customization */
+  #design {
+    background: var(--cream);
+    color: var(--navy);
+    padding: 8rem 4rem;
+  }
+
+  .design-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .design-inner .section-title { margin-bottom: 1rem; }
+  .design-inner > p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    max-width: 550px;
+    margin: 0 auto 4rem;
+    line-height: 1.9;
+  }
+
+  .customizer {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 3rem;
+    text-align: left;
+    background: var(--white);
+    box-shadow: 0 8px 60px rgba(13,27,62,0.08);
+    overflow: hidden;
+  }
+
+  .customizer-options {
+    padding: 3rem;
+  }
+
+  .option-group {
+    margin-bottom: 2.5rem;
+  }
+  .option-group h4 {
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+  .option-swatches {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .swatch {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    cursor: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
+  }
+  .swatch:hover, .swatch.active { transform: scale(1.15); box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--navy); }
+  .option-pills {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .pill {
+    padding: 0.5rem 1.2rem;
+    border: 1px solid rgba(13,27,62,0.15);
+    font-size: 0.78rem;
+    cursor: none;
+    transition: all 0.2s;
+    background: transparent;
+    font-family: 'Jost', sans-serif;
+    color: var(--navy);
+  }
+  .pill:hover, .pill.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
+
+  .customizer-preview {
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    min-height: 400px;
+  }
+  .preview-silhouette {
+    font-size: 6rem;
+    opacity: 0.9;
+    transition: transform 0.5s ease;
+  }
+  .preview-silhouette:hover { transform: scale(1.05); }
+  .preview-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .preview-detail {
+    font-size: 0.8rem;
+    color: var(--mist);
+    text-align: center;
+    font-weight: 300;
+  }
+  .preview-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--white);
+  }
+
+  /* GLOBAL EXPANSION */
+  #expansion {
+    background: var(--navy);
+    padding: 8rem 4rem;
+  }
+
+  .expansion-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .expansion-stages {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .stage {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.3s;
+    cursor: none;
+    position: relative;
+  }
+  .stage:hover { background: rgba(201,168,76,0.03); padding-left: 1rem; }
+  .stage:last-child { border-bottom: none; }
+
+  .stage-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: rgba(201,168,76,0.2);
+    line-height: 1;
+    min-width: 60px;
+    transition: color 0.3s;
+  }
+  .stage:hover .stage-num { color: rgba(201,168,76,0.5); }
+
+  .stage-content { flex: 1; }
+  .stage-flag { font-size: 1.4rem; margin-bottom: 0.3rem; }
+  .stage-place {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.2rem;
+  }
+  .stage-status {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--mist);
+    text-transform: uppercase;
+  }
+  .stage:first-child .stage-status { color: var(--gold); }
+
+  .expansion-text .section-title { margin-bottom: 1.5rem; }
+  .expansion-text p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--mist);
+    line-height: 1.9;
+    margin-bottom: 2rem;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .stat {
+    border-left: 2px solid rgba(201,168,76,0.3);
+    padding-left: 1.2rem;
+  }
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--mist);
+    margin-top: 0.3rem;
+    letter-spacing: 0.05em;
+    font-weight: 300;
+  }
+
+  /* CLOSING / CTA */
+  #cta {
+    background: var(--pearl);
+    color: var(--navy);
+    padding: 10rem 4rem;
+    text-align: center;
+  }
+
+  .cta-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .cta-pearl {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, rgba(248,244,238,0.95), rgba(201,168,76,0.5) 60%, rgba(201,168,76,0.1));
+    box-shadow: 0 0 40px rgba(201,168,76,0.3);
+    margin: 0 auto 3rem;
+  }
+
+  .cta-inner .section-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1.5rem;
+    color: var(--navy);
+  }
+
+  .cta-inner p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.9;
+    margin-bottom: 3rem;
+  }
+
+  .cta-closing {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-top: 3rem;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--navy);
+    padding: 4rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem;
+  }
+
+  .footer-brand h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+  .footer-brand h3 span { color: var(--gold); }
+  .footer-brand p {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--mist);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .footer-col h4 {
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li {
+    margin-bottom: 0.7rem;
+  }
+  .footer-col a {
+    font-size: 0.83rem;
+    font-weight: 300;
+    color: var(--mist);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-col a:hover { color: var(--gold); }
+
+  .footer-bottom {
+    max-width: 1300px;
+    margin: 3rem auto 0;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-bottom p {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.3);
+    font-weight: 300;
+  }
+
+  /* Scroll animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* Gold divider */
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 1.5rem 0;
+  }
+  .divider.center { margin: 1.5rem auto; }
+</style>
+  </head>
+  <body>
+
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- NAV -->
+    <nav id="navbar">
+      <a href="#" class="nav-logo">THE <span>PEARL</span></a>
+      <ul class="nav-links">
+        <li><a href="#ocean">Our Story</a></li>
+        <li><a href="#discover">Discover</a></li>
+        <li><a href="#collections">Collections</a></li>
+        <li><a href="#mirror">Pearl Mirror</a></li>
+        <li><a href="#stories">Community</a></li>
+        <li><a href="#design">Design Yours</a></li>
+      </ul>
+      <button class="nav-cta">Begin Your Journey</button>
+    </nav>
+
+    <!-- HERO — The Arrival -->
+    <section id="hero">
+      <div class="hero-bg"></div>
+      <div class="pearl-orb orb-1"></div>
+      <div class="pearl-orb orb-2"></div>
+      <div class="pearl-orb orb-3"></div>
+      <div class="pearl-symbol">
+        <div class="pearl-inner"></div>
+        <div class="pearl-core"></div>
+      </div>
+
+      <div class="hero-content">
+        <span class="hero-eyebrow">Story-Driven Modest Fashion</span>
+        <h1 class="hero-title">
+          THE PEARL
+          <em>Every Pearl Begins Hidden</em>
+        </h1>
+        <p class="hero-tagline">A journey of confidence, elegance, and
+          self-discovery.</p>
+        <div class="hero-actions">
+          <a href="#discover" class="btn-primary">Discover Your
+            Pearl</a>
+          <a href="#ocean" class="btn-outline">Our Story</a>
+        </div>
+      </div>
+
+      <div class="hero-scroll">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- THE OCEAN — Vision -->
+    <section id="ocean">
+      <div class="ocean-inner">
+        <div class="ocean-visual">
+          <div class="ocean-rings">
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring ring-3"></div>
+            <div class="ring-core">
+              <div class="ring-core-inner"></div>
+            </div>
+          </div>
+        </div>
+        <div class="ocean-text reveal">
+          <span class="section-eyebrow">Our Vision</span>
+          <h2 class="section-title">The Pearl is not a clothing
+            brand.<br><em
+              style="font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--navy)">The
+              Pearl is a journey.</em></h2>
+          <div class="divider"></div>
+          <p>We believe every woman carries extraordinary beauty
+            within her — beauty that modesty doesn't diminish, but
+            refines. The Pearl was born to help women discover that
+            confidence, elegance, and self-worth are not found in
+            trends, but in the depths of who they truly are.</p>
+          <blockquote
+            class="ocean-quote">"Beauty is not diminished by modesty. Beauty is refined by it."</blockquote>
+          <p>We are building the world's first storytelling and
+            personalization platform for modest fashion — where
+            shopping becomes the outcome of emotional connection,
+            not the starting point.</p>
+          <a href="#discover" class="btn-primary"
+            style="margin-top:1rem; display:inline-block;">Start
+            Your Journey</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- REFLECTION — Transformation -->
+    <section id="reflection">
+      <div class="reflection-inner">
+        <div class="reflection-header reveal">
+          <span class="section-eyebrow">The Transformation</span>
+          <h2 class="section-title" style="color:var(--white)">From
+            searching to becoming.</h2>
+          <div class="divider center"></div>
+        </div>
+        <div class="transformation-grid reveal reveal-delay-1">
+          <div class="transform-col before">
+            <h3>Before The Pearl</h3>
+            <div class="transform-word">
+              Unsure<br>Hesitant<br>Insecure<br>Searching
+            </div>
+          </div>
+          <div class="transform-arrow">
+            <div class="arrow-line"></div>
+            <div class="arrow-icon">◆</div>
+            <div class="arrow-line"></div>
+          </div>
+          <div class="transform-col after">
+            <h3>After The Pearl</h3>
+            <div class="transform-word">
+              Confident<br>Elegant<br>Empowered<br>Connected
+            </div>
+          </div>
+        </div>
+        <div class="transform-statement reveal reveal-delay-2">
+          <p>"We do not sell clothing. We help women become the version of themselves they aspire to be."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISCOVER YOUR PEARL — Quiz -->
+    <section id="discover">
+      <div class="discover-inner">
+        <div class="reveal">
+          <div class="quiz-card">
+            <h3>Discover Your Pearl Identity</h3>
+            <p>Answer a few questions and we'll reveal your pearl
+              type, color palette, and perfect collection.</p>
+            <div class="quiz-progress">
+              <div class="quiz-dot active"></div>
+              <div class="quiz-dot active"></div>
+              <div class="quiz-dot"></div>
+              <div class="quiz-dot"></div>
+              <div class="quiz-dot"></div>
+            </div>
+            <p
+              style="font-size:0.8rem; color:var(--gold); margin-bottom:1rem; letter-spacing:0.1em;">What
+              defines your personal style?</p>
+            <div class="quiz-options">
+              <div class="quiz-option active"
+                onclick="selectOption(this)">
+                <div class="option-icon">🌊</div>
+                <div class="option-label">Calm & Flowing</div>
+              </div>
+              <div class="quiz-option"
+                onclick="selectOption(this)">
+                <div class="option-icon">✨</div>
+                <div class="option-label">Radiant & Bold</div>
+              </div>
+              <div class="quiz-option"
+                onclick="selectOption(this)">
+                <div class="option-icon">🌸</div>
+                <div class="option-label">Soft & Romantic</div>
+              </div>
+              <div class="quiz-option"
+                onclick="selectOption(this)">
+                <div class="option-icon">💎</div>
+                <div class="option-label">Classic &
+                  Refined</div>
+              </div>
+            </div>
+            <button class="btn-primary"
+              style="width:100%; cursor:none;">Next Question
+              →</button>
+          </div>
+        </div>
+        <div class="discover-text reveal reveal-delay-2">
+          <span class="section-eyebrow">Pearl Discovery Quiz</span>
+          <h2 class="section-title" style="color:var(--navy)">Every
+            woman is a different kind of pearl.</h2>
+          <div class="divider"></div>
+          <p>Our interactive personality experience reveals your
+            unique Pearl identity — your colors, your style
+            direction, and the collection that was made for you.</p>
+          <div class="pearl-types">
+            <div class="pearl-type">
+              <div class="type-dot"
+                style="background:#F0EAE0;"></div>
+              <div class="type-name">South Sea Pearl</div>
+              <div class="type-desc">Timeless, luminous,
+                refined</div>
+            </div>
+            <div class="pearl-type">
+              <div class="type-dot"
+                style="background:#C9A84C;"></div>
+              <div class="type-name">Golden Pearl</div>
+              <div class="type-desc">Warm, bold, radiant
+                confidence</div>
+            </div>
+            <div class="pearl-type">
+              <div class="type-dot"
+                style="background:#3D3D5C;"></div>
+              <div class="type-name">Tahitian Pearl</div>
+              <div class="type-desc">Mysterious, strong,
+                unique</div>
+            </div>
+            <div class="pearl-type">
+              <div class="type-dot"
+                style="background:#D4B4B4;"></div>
+              <div class="type-name">Pink Pearl</div>
+              <div class="type-desc">Gentle, romantic, soft
+                grace</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLLECTIONS -->
+    <section id="collections">
+      <div class="collections-header reveal">
+        <span class="section-eyebrow">The Collections</span>
+        <h2 class="section-title">Crafted for your journey.</h2>
+        <p>Each piece is designed not just to be worn, but to be felt —
+          a quiet statement of who you are becoming.</p>
+      </div>
+      <div class="collections-grid">
+        <div class="collection-card reveal">
+          <div class="card-img">🧣</div>
+          <div class="card-content">
+            <span class="card-tag">New Arrivals</span>
+            <h3 class="card-title">The Silk<br>Scarves</h3>
+            <a href="#" class="card-link">Explore ›</a>
+          </div>
+        </div>
+        <div class="collection-card reveal reveal-delay-1">
+          <div class="card-img" style="font-size:4.5rem;">👗</div>
+          <div class="card-content">
+            <span class="card-tag">Signature</span>
+            <h3 class="card-title">The Abaya<br>Collection</h3>
+            <a href="#" class="card-link">Explore ›</a>
+          </div>
+        </div>
+        <div class="collection-card reveal reveal-delay-2">
+          <div class="card-img" style="font-size:4rem;">💫</div>
+          <div class="card-content">
+            <span class="card-tag">Accessories</span>
+            <h3 class="card-title">Elegance<br>in Detail</h3>
+            <a href="#" class="card-link">Explore ›</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PEARL MIRROR — AI Feature -->
+    <section id="mirror">
+      <div class="mirror-inner">
+        <div class="reveal">
+          <div class="mirror-visual">
+            <div class="mirror-frame">
+              <div class="mirror-glow"></div>
+              <div class="mirror-icon">🪞</div>
+              <div class="mirror-label">Pearl Mirror AI</div>
+            </div>
+            <div class="mirror-features">
+              <div class="mirror-feat">Virtual Try-On</div>
+              <div class="mirror-feat">Color Matching</div>
+              <div class="mirror-feat">Scarf Styling</div>
+              <div class="mirror-feat">Outfit Preview</div>
+            </div>
+          </div>
+        </div>
+        <div class="mirror-text reveal reveal-delay-2">
+          <span class="section-eyebrow">Feature</span>
+          <h2 class="section-title" style="color:var(--navy)">See
+            yourself,<br>beautifully.</h2>
+          <div class="divider"></div>
+          <p>Pearl Mirror is our AI-powered styling assistant. Upload
+            a photo and discover how modest fashion looks on you —
+            before you ever buy a thing.</p>
+          <div class="mirror-steps">
+            <div class="mirror-step">
+              <div class="step-num"
+                style="border-color:var(--navy); color:var(--navy);">1</div>
+              <div class="step-text"
+                style="color:var(--text-muted);">Upload a photo
+                of yourself</div>
+            </div>
+            <div class="mirror-step">
+              <div class="step-num"
+                style="border-color:var(--navy); color:var(--navy);">2</div>
+              <div class="step-text"
+                style="color:var(--text-muted);">AI generates
+                your styled preview</div>
+            </div>
+            <div class="mirror-step">
+              <div class="step-num"
+                style="border-color:var(--navy); color:var(--navy);">3</div>
+              <div class="step-text"
+                style="color:var(--text-muted);">Explore color &
+                scarf combinations</div>
+            </div>
+            <div class="mirror-step">
+              <div class="step-num"
+                style="border-color:var(--navy); color:var(--navy);">4</div>
+              <div class="step-text"
+                style="color:var(--text-muted);">Shop with full
+                confidence</div>
+            </div>
+          </div>
+          <a href="#" class="btn-primary"
+            style="display:inline-block;">Try Pearl Mirror</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PEARL STORIES — Community -->
+    <section id="stories">
+      <div class="stories-header reveal">
+        <span class="section-eyebrow">Pearl Stories</span>
+        <h2 class="section-title">A global sisterhood.</h2>
+        <p>Real women, real journeys. The Pearl is more than fashion —
+          it's a community of women becoming who they were always
+          meant to be.</p>
+      </div>
+      <div class="stories-grid">
+        <div class="story-card reveal">
+          <div class="story-avatar">🌸</div>
+          <p
+            class="story-quote">"I was afraid I would lose my sense of style. Instead, I found a version of myself I had never known. The Pearl gave me that."</p>
+          <div class="story-author">Nour A.</div>
+          <div class="story-location">Cairo, Egypt</div>
+        </div>
+        <div class="story-card reveal reveal-delay-1">
+          <div class="story-avatar">✨</div>
+          <p
+            class="story-quote">"The Pearl Mirror showed me how beautiful I could look. That moment changed everything. I stopped hesitating and started becoming."</p>
+          <div class="story-author">Siti R.</div>
+          <div class="story-location">Kuala Lumpur, Malaysia</div>
+        </div>
+        <div class="story-card reveal reveal-delay-2">
+          <div class="story-avatar">💎</div>
+          <p
+            class="story-quote">"I never thought modest fashion could feel this personal. Designing my own pearl piece was one of the most empowering things I have ever done."</p>
+          <div class="story-author">Fatima K.</div>
+          <div class="story-location">Dubai, UAE</div>
+        </div>
+      </div>
+      <div class="stories-cta reveal">
+        <a href="#" class="btn-outline">Share Your Story</a>
+      </div>
+    </section>
+
+    <!-- DESIGN YOUR PEARL — Customization -->
+    <section id="design">
+      <div class="design-inner">
+        <span class="section-eyebrow reveal">Design Your Pearl</span>
+        <h2 class="section-title reveal" style="color:var(--navy)">Every
+          detail, yours.</h2>
+        <p class="reveal">Choose your fabric, colors, cut, and
+          embroidery. We create a piece that is entirely and only
+          you.</p>
+        <div class="customizer reveal">
+          <div class="customizer-options">
+            <div class="option-group">
+              <h4>Fabric</h4>
+              <div class="option-pills">
+                <button class="pill active"
+                  onclick="selectPill(this)">Silk
+                  Chiffon</button>
+                <button class="pill"
+                  onclick="selectPill(this)">Crepe</button>
+                <button class="pill"
+                  onclick="selectPill(this)">Linen</button>
+                <button class="pill"
+                  onclick="selectPill(this)">Velvet</button>
+              </div>
+            </div>
+            <div class="option-group">
+              <h4>Color Palette</h4>
+              <div class="option-swatches">
+                <div class="swatch active"
+                  style="background:#0D1B3E;"
+                  onclick="selectSwatch(this)"></div>
+                <div class="swatch" style="background:#C9A84C;"
+                  onclick="selectSwatch(this)"></div>
+                <div class="swatch" style="background:#F8F4EE;"
+                  onclick="selectSwatch(this)"></div>
+                <div class="swatch" style="background:#4A6741;"
+                  onclick="selectSwatch(this)"></div>
+                <div class="swatch" style="background:#7B3F5E;"
+                  onclick="selectSwatch(this)"></div>
+                <div class="swatch" style="background:#2C4A6E;"
+                  onclick="selectSwatch(this)"></div>
+              </div>
+            </div>
+            <div class="option-group">
+              <h4>Sleeve Style</h4>
+              <div class="option-pills">
+                <button class="pill active"
+                  onclick="selectPill(this)">Full
+                  Length</button>
+                <button class="pill"
+                  onclick="selectPill(this)">Bell
+                  Sleeve</button>
+                <button class="pill"
+                  onclick="selectPill(this)">Kimono</button>
+              </div>
+            </div>
+            <div class="option-group">
+              <h4>Embroidery</h4>
+              <div class="option-pills">
+                <button class="pill"
+                  onclick="selectPill(this)">None</button>
+                <button class="pill active"
+                  onclick="selectPill(this)">Gold
+                  Trim</button>
+                <button class="pill"
+                  onclick="selectPill(this)">Floral</button>
+                <button class="pill"
+                  onclick="selectPill(this)">Geometric</button>
+              </div>
+            </div>
+            <a href="#" class="btn-primary"
+              style="display:inline-block; margin-top:1rem;">Begin
+              My Design →</a>
+          </div>
+          <div class="customizer-preview">
+            <div class="preview-silhouette"
+              id="previewSilhouette">🧕</div>
+            <div class="preview-label">Your Pearl Piece</div>
+            <div class="preview-detail">Silk Chiffon · Navy · Gold
+              Trim</div>
+            <div class="preview-price">From $180</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPANSION -->
+    <section id="expansion">
+      <div class="expansion-inner">
+        <div class="reveal">
+          <span class="section-eyebrow">Global Journey</span>
+          <h2 class="section-title">One pearl, one world.</h2>
+          <div class="divider"></div>
+          <p class="reveal-delay-1"
+            style="font-size:1rem; font-weight:300; color:var(--mist); line-height:1.9; margin-bottom:2rem;">The
+            Pearl is built for the world. We are beginning in Egypt
+            and growing outward — one community, one story at a
+            time.</p>
+          <div class="stat-grid reveal reveal-delay-2">
+            <div class="stat">
+              <div class="stat-number">$100B+</div>
+              <div class="stat-label">Global modest fashion
+                market</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">2B+</div>
+              <div class="stat-label">Muslim women worldwide</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">5</div>
+              <div class="stat-label">Expansion stages</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">∞</div>
+              <div class="stat-label">Stories to be told</div>
+            </div>
+          </div>
+        </div>
+        <div class="expansion-stages reveal reveal-delay-1">
+          <div class="stage">
+            <div class="stage-num">01</div>
+            <div class="stage-content">
+              <div class="stage-flag">🇪🇬</div>
+              <div class="stage-place">Egypt</div>
+              <div class="stage-status">● Active · Launching
+                Now</div>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-num">02</div>
+            <div class="stage-content">
+              <div class="stage-flag">🌍</div>
+              <div class="stage-place">MENA Region</div>
+              <div class="stage-status">Coming 2027</div>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-num">03</div>
+            <div class="stage-content">
+              <div class="stage-flag">🌏</div>
+              <div class="stage-place">Southeast Asia</div>
+              <div class="stage-status">Coming 2028</div>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-num">04</div>
+            <div class="stage-content">
+              <div class="stage-flag">🇪🇺</div>
+              <div class="stage-place">Europe</div>
+              <div class="stage-status">Coming 2029</div>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-num">05</div>
+            <div class="stage-content">
+              <div class="stage-flag">🌎</div>
+              <div class="stage-place">North America</div>
+              <div class="stage-status">Coming 2030</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING CTA -->
+    <section id="cta">
+      <div class="cta-inner reveal">
+        <div class="cta-pearl"></div>
+        <span class="section-eyebrow"
+          style="display:block; margin-bottom:1rem;">Begin Your
+          Journey</span>
+        <h2 class="section-title">A pearl is not valuable because
+          everyone sees it. It is valuable because of what it
+          becomes.</h2>
+        <div class="divider center"></div>
+        <p>So are you. Your journey of confidence, elegance, and
+          self-discovery begins here.</p>
+        <div class="hero-actions" style="opacity:1; animation:none;">
+          <a href="#discover" class="btn-primary"
+            style="background:var(--navy); color:var(--white);">Discover
+            Your Pearl</a>
+          <a href="#design" class="btn-outline"
+            style="border-color:rgba(13,27,62,0.3); color:var(--navy);">Design
+            Your Pearl</a>
+        </div>
+        <p class="cta-closing">"Every Pearl Begins Hidden."</p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <h3>THE <span>PEARL</span></h3>
+          <p>Building the future of story-driven modest fashion. A
+            journey of confidence, elegance, and self-discovery for
+            women around the world.</p>
+          <div style="display:flex; gap:1rem;">
+            <a href="#"
+              style="color:var(--mist); font-size:0.8rem; text-decoration:none; transition:color 0.3s;"
+              onmouseover="this.style.color='var(--gold)'"
+              onmouseout="this.style.color='var(--mist)'">Instagram</a>
+            <a href="#"
+              style="color:var(--mist); font-size:0.8rem; text-decoration:none; transition:color 0.3s;"
+              onmouseover="this.style.color='var(--gold)'"
+              onmouseout="this.style.color='var(--mist)'">TikTok</a>
+            <a href="#"
+              style="color:var(--mist); font-size:0.8rem; text-decoration:none; transition:color 0.3s;"
+              onmouseover="this.style.color='var(--gold)'"
+              onmouseout="this.style.color='var(--mist)'">YouTube</a>
+            <a href="#"
+              style="color:var(--mist); font-size:0.8rem; text-decoration:none; transition:color 0.3s;"
+              onmouseover="this.style.color='var(--gold)'"
+              onmouseout="this.style.color='var(--mist)'">Pinterest</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>The Journey</h4>
+          <ul>
+            <li><a href="#ocean">Our Story</a></li>
+            <li><a href="#discover">Discover Your Pearl</a></li>
+            <li><a href="#reflection">The Transformation</a></li>
+            <li><a href="#stories">Pearl Stories</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="#">Scarves</a></li>
+            <li><a href="#">Abayas</a></li>
+            <li><a href="#">Dresses</a></li>
+            <li><a href="#">Accessories</a></li>
+            <li><a href="#design">Design Your Pearl</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Features</h4>
+          <ul>
+            <li><a href="#mirror">Pearl Mirror AI</a></li>
+            <li><a href="#discover">Pearl Quiz</a></li>
+            <li><a href="#stories">Community</a></li>
+            <li><a href="#">Styling Guides</a></li>
+            <li><a href="#">Newsletter</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 The Pearl. All rights reserved. Building confidence
+          through elegance, one journey at a time.</p>
+        <p>Cairo, Egypt · Global Modest Fashion</p>
+      </div>
+    </footer>
+
+    <script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .quiz-option, .pearl-type, .stage, .collection-card, .story-card, .swatch, .pill').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px';
+      cursor.style.height = '20px';
+      ring.style.width = '56px';
+      ring.style.height = '56px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px';
+      cursor.style.height = '12px';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+    });
+  });
+
+  // Navbar scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Quiz interactions
+  function selectOption(el) {
+    el.closest('.quiz-options').querySelectorAll('.quiz-option').forEach(o => o.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function selectPill(el) {
+    el.closest('.option-pills').querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function selectSwatch(el) {
+    el.closest('.option-swatches').querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+    // Update preview
+    const silhouette = document.getElementById('previewSilhouette');
+    silhouette.style.filter = 'hue-rotate(' + (Math.random() * 40) + 'deg)';
+  }
+</script>
+  </body>
+</html>
