@@ -1306,6 +1306,43 @@
     .footer-inner { gap: 1.5rem; }
     .footer-brand, .footer-col { max-width: 100%; }
     .mirror-features { flex-direction: column; align-items: stretch; }
+
+    .nav-toggle { display: flex; flex-direction: column; justify-content: center; gap: 0.35rem; width: 2rem; height: 2rem; border: none; background: transparent; cursor: pointer; }
+    .nav-toggle span { display: block; width: 100%; height: 2px; border-radius: 999px; background: var(--white); transition: transform 0.3s ease, opacity 0.3s ease; }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .nav-links {
+      position: fixed;
+      inset: 0;
+      padding: 7rem 1.5rem 2rem;
+      background: rgba(13, 27, 62, 0.98);
+      backdrop-filter: blur(16px);
+      flex-direction: column;
+      gap: 1.6rem;
+      align-items: center;
+      justify-content: flex-start;
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+      z-index: 200;
+    }
+    .nav-links.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .nav-links li { width: 100%; text-align: center; }
+    .nav-links a { font-size: 1rem; color: var(--white); }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { display: none; }
+    nav { justify-content: space-between; }
+    .nav-links { gap: 1.2rem; }
+    .transform-arrow { flex-direction: row; justify-content: center; gap: 1rem; align-items: center; margin: 0 auto; }
+    .transform-arrow .arrow-line { width: 1px; height: 40px; }
+    .transformation-grid { grid-template-columns: 1fr; }
+    .transform-col { padding: 2rem 1.5rem; }
+    .transform-col h3 { font-size: 0.85rem; }
+    .transform-word { font-size: 1.9rem; line-height: 1.4; }
+    .stage { align-items: stretch; }
   }
 
   @media (hover: none), (pointer: coarse) {
@@ -1322,6 +1359,11 @@
     <!-- NAV -->
     <nav id="navbar">
       <a href="#" class="nav-logo">THE <span>PEARL</span></a>
+      <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <ul class="nav-links">
         <li><a href="#ocean">Our Story</a></li>
         <li><a href="#discover">Discover</a></li>
@@ -1952,8 +1994,28 @@
   });
 
   // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
   window.addEventListener('scroll', () => {
-    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    navToggle.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', open);
+  });
+
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (navLinks.classList.contains('open')) {
+        navLinks.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
   });
 
   // Scroll reveal
