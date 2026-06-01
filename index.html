@@ -567,7 +567,7 @@
   .quiz-option {
     padding: 1rem;
     border: 1px solid rgba(255,255,255,0.12);
-    cursor: none;
+    cursor: pointer;
     transition: all 0.3s;
     text-align: center;
   }
@@ -1343,6 +1343,21 @@
     .transform-col h3 { font-size: 0.85rem; }
     .transform-word { font-size: 1.9rem; line-height: 1.4; }
     .stage { align-items: stretch; }
+
+    .collection-card {
+      aspect-ratio: auto;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .card-img { min-height: 180px; font-size: 4rem; }
+    .card-content {
+      position: static;
+      width: 100%;
+      padding: 1.5rem;
+      background: rgba(13,27,62,0.8);
+    }
   }
 
   @media (hover: none), (pointer: coarse) {
@@ -1494,7 +1509,7 @@
               <div class="quiz-dot"></div>
               <div class="quiz-dot"></div>
             </div>
-            <p
+            <p class="quiz-question-text"
               style="font-size:0.8rem; color:var(--gold); margin-bottom:1rem; letter-spacing:0.1em;">What
               defines your personal style?</p>
             <div class="quiz-options">
@@ -1520,9 +1535,14 @@
                   Refined</div>
               </div>
             </div>
-            <button class="btn-primary"
-              style="width:100%; cursor:none;">Next Question
+            <button type="button" class="btn-primary"
+              style="width:100%;">Next Question
               →</button>
+            <div class="quiz-result-card" aria-live="polite">
+              <h4>Your Pearl Result</h4>
+              <p class="result-text">Complete the quiz to reveal your perfect
+                Pearl identity and collection.</p>
+            </div>
           </div>
         </div>
         <div class="discover-text reveal reveal-delay-2">
@@ -1899,6 +1919,9 @@
           <p>Building the future of story-driven modest fashion. A
             journey of confidence, elegance, and self-discovery for
             women around the world.</p>
+          <p class="footer-founder"
+            style="font-size:0.85rem; color:var(--mist); margin-bottom:0.6rem;"><strong>CEO
+              &amp; Founder</strong> — Jumana Medhat</p>
           <div style="display:flex; gap:1rem;">
             <a href="#"
               style="color:var(--mist); font-size:0.8rem; text-decoration:none; transition:color 0.3s;"
@@ -2017,6 +2040,85 @@
       }
     });
   });
+
+  const quizCard = document.querySelector('.quiz-card');
+  const quizQuestionText = document.querySelector('.quiz-question-text');
+  const quizOptions = Array.from(document.querySelectorAll('.quiz-option'));
+  const quizProgressDots = Array.from(document.querySelectorAll('.quiz-dot'));
+  const nextQuestionButton = quizCard.querySelector('button.btn-primary');
+
+  const quizSteps = [
+    {
+      question: 'What defines your personal style?',
+      options: [
+        { icon: '🌊', label: 'Calm & Flowing' },
+        { icon: '✨', label: 'Radiant & Bold' },
+        { icon: '🌸', label: 'Soft & Romantic' },
+        { icon: '💎', label: 'Classic & Refined' }
+      ]
+    },
+    {
+      question: 'Which mood feels most like you?',
+      options: [
+        { icon: '🌿', label: 'Natural & Serene' },
+        { icon: '🔥', label: 'Warm & Bold' },
+        { icon: '🌸', label: 'Delicate & Dreamy' },
+        { icon: '🖤', label: 'Polished & Timeless' }
+      ]
+    },
+    {
+      question: 'What finishes your ideal look?',
+      options: [
+        { icon: '🧣', label: 'Silk Scarf' },
+        { icon: '✨', label: 'Gold Trim' },
+        { icon: '🌷', label: 'Floral Detail' },
+        { icon: '🕊️', label: 'Clean Silhouette' }
+      ]
+    }
+  ];
+
+  let quizStep = 0;
+  let quizComplete = false;
+
+  function updateQuizStep() {
+    const step = quizSteps[quizStep];
+    quizQuestionText.textContent = step.question;
+    quizOptions.forEach((option, index) => {
+      option.querySelector('.option-icon').textContent = step.options[index].icon;
+      option.querySelector('.option-label').textContent = step.options[index].label;
+      option.classList.remove('active');
+    });
+    quizOptions[0].classList.add('active');
+
+    quizProgressDots.forEach((dot, index) => {
+      dot.classList.toggle('active', index <= quizStep);
+    });
+
+    nextQuestionButton.textContent = quizStep < quizSteps.length - 1 ? 'Next Question →' : 'Reveal Your Pearl →';
+  }
+
+  nextQuestionButton.addEventListener('click', () => {
+    if (quizComplete) {
+      quizStep = 0;
+      quizComplete = false;
+      document.querySelector('.quiz-result-card').classList.remove('visible');
+      updateQuizStep();
+      return;
+    }
+
+    if (quizStep < quizSteps.length - 1) {
+      quizStep += 1;
+      updateQuizStep();
+    } else {
+      const selectedLabel = document.querySelector('.quiz-option.active .option-label').textContent;
+      document.querySelector('.quiz-result-card .result-text').textContent = `Your Pearl identity is: ${selectedLabel}. Thank you for exploring your style.`;
+      document.querySelector('.quiz-result-card').classList.add('visible');
+      quizComplete = true;
+      nextQuestionButton.textContent = 'Retake Quiz';
+    }
+  });
+
+  updateQuizStep();
 
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
